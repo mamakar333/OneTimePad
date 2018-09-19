@@ -10,11 +10,11 @@ class KeyGen {
     char[] charArray = str.toCharArray();
     System.out.println(charArray);
 
-    charArray[31]='1';
+    //charArray[31]='1';
 
     int num = 10;
     System.out.println(charArray);
-    int num1 = 999,pol=0;
+    int num1 = 2147483647,pol=0;
     int count=0;
     int pl=31;
     while( num1 !=1)
