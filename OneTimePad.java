@@ -14,16 +14,72 @@ class OneTimePad
     System.out.println("The given message is "+msg);
     keyGenerator();
     encryptionMaxima(msg);
+    decryptionStealth();
   }
 
 
   public static void decryptionStealth()
   {
+    String key="";
+    String cipher="";
+    String fileName="key.txt";
+    String cipherFile = "ciphertext.txt";
+    // Reading the Key from the txt file
+    try
+    {
+      BufferedReader in = new BufferedReader(new FileReader(fileName));
+      BufferedReader buf = new BufferedReader(new FileReader(cipherFile));
+      key = in.readLine();
+      cipher=buf.readLine();
+    }
+    catch(FileNotFoundException ex)
+    {
+      System.out.println("Unable to open file '" + fileName + "'");
+    }
+    catch(IOException ex)
+    {
+      System.out.println("Error reading file '" + fileName + "'");
+    }
+    char[] keyArray = key.toCharArray();
+    char[] cipherArray=cipher.toCharArray();
+    char[] plainArray= new char[32] ;
+    for(int k=0;k<32;k++)
+    {
+        if(keyArray[k]=='0' && cipherArray[k]=='0' || keyArray[k]=='1' && cipherArray[k]=='1')
+        {
+          plainArray[k]='0';
+        }
+        if(keyArray[k]=='0' && cipherArray[k]=='1' || keyArray[k]=='1' && cipherArray[k]=='0')
+        {
+          plainArray[k]='1';
+        }
+    }
+    System.out.println("The Plain Array is :");
+    System.out.println(plainArray);
+    int k=8;
+    int b=0;
 
-
+    String message = "";
+    for(int j =0;j<4;j++)
+    {
+      double sub=7;
+      double aNum=0;
+      double two=2;
+      for(int l=b;l<k;l++)
+      {
+        int doll=(int)plainArray[l]-48;
+        aNum = aNum+(doll*(Math.pow(two,sub)));
+        sub--;
+      }
+      b=b+8;
+      k=k+8;
+      int bNum = (int)aNum;
+      char cello = (char)bNum;
+      message=message+cello;
+    }
+    System.out.println("The original Message is : ");
+    System.out.println(message);
   }
-
-
 
 
   public static int randomNumberInRange(int min, int max)
@@ -93,30 +149,19 @@ class OneTimePad
     catch(IOException ex)
     {
       System.out.println("Error reading file '" + fileName + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
     }
     char[] keyArray = key.toCharArray();
     char[] plainArray=binaryMessage.toCharArray();
     char[] cipherArray= new char[32] ;
     for(int k=0;k<32;k++)
     {
-
-        if(keyArray[k]=='0' && plainArray[k]=='0')
+        if(keyArray[k]=='0' && plainArray[k]=='0' || keyArray[k]=='1' && plainArray[k]=='1')
         {
           cipherArray[k]='0';
         }
-        if(keyArray[k]=='0' && plainArray[k]=='1')
+        if(keyArray[k]=='0' && plainArray[k]=='1' || keyArray[k]=='1' && plainArray[k]=='0')
         {
           cipherArray[k]='1';
-        }
-        if(keyArray[k]=='1' && plainArray[k]=='0')
-        {
-          cipherArray[k]='1';
-        }
-        if(keyArray[k]=='1' && plainArray[k]=='1')
-        {
-          cipherArray[k]='0';
         }
     }
     System.out.println("The Cipher Array is :");
@@ -133,8 +178,6 @@ class OneTimePad
     }
 
   }
-
-
   public static void keyGenerator()
   {
     int num1 = randomNumberInRange(1,2147483647);
