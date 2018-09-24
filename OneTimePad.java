@@ -17,7 +17,7 @@ class OneTimePad
     System.out.println(stringGenerator(numBits));
     long maxim = maxNumberGenerator(numBits);
     System.out.println("The max number is "+maxim);
-    BigInteger b=largeNumberGenerator();
+    BigInteger b=largeNumberGenerator(numBits);
     System.out.println("Long b = "+b);
     keyGenerator();
     encryptionMaxima(msg);
