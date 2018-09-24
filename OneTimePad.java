@@ -6,17 +6,43 @@ class OneTimePad
 
   public static void main(String[] args)throws Exception
   {
+
     Scanner sc = new Scanner(System.in);
     System.out.print("Enter the value of lamda : ");
     int numBits = sc.nextInt();
     System.out.print("Enter a 4 letter message to be encoded :");
     String msg = sc.next();
     System.out.println("The given message is "+msg);
+    System.out.println(stringGenerator(numBits));
+    long maxim = maxNumberGenerator(numBits);
+    System.out.println("The max number is "+maxim);
     keyGenerator();
     encryptionMaxima(msg);
     decryptionStealth();
+
   }
 
+public static String stringGenerator(int lamda)
+{
+    String jack="";
+    int t=lamda,p=0;
+    while(p<t)
+    {
+      jack=jack+"0";
+      p++;
+    }
+    return jack;
+
+}
+
+public static long maxNumberGenerator(int lamda){
+    double two=2;
+    lamda=lamda-1;
+    double max= (Math.pow(two,lamda)-1);
+    long a =(long) max;
+    return a;
+
+}
 
   public static void decryptionStealth()
   {
