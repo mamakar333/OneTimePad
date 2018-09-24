@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 import java.lang.*;
+import java.math.BigInteger;
 class OneTimePad
 {
 
@@ -16,9 +17,31 @@ class OneTimePad
     System.out.println(stringGenerator(numBits));
     long maxim = maxNumberGenerator(numBits);
     System.out.println("The max number is "+maxim);
+    BigInteger b=largeNumberGenerator();
+    System.out.println("Long b = "+b);
     keyGenerator();
     encryptionMaxima(msg);
     decryptionStealth();
+
+  }
+
+  // public static void longKeyGenerator(int lamda)
+  // {
+  //
+  //   long num1=randomNumberInRange(1,maxNumberGenerator(lamda));
+  //
+  // }
+  public static int randomNumberInRange(int min, int max)
+  {
+    Random random = new Random();
+    return random.nextInt((max - min) + 1) + min;
+  }
+
+  public static BigInteger largeNumberGenerator(int lamda)
+  {
+    BigInteger b = new BigInteger(lamda, new Random());
+    System.out.println(b);
+    return b;
 
   }
 
@@ -37,7 +60,11 @@ public static String stringGenerator(int lamda)
 
 public static long maxNumberGenerator(int lamda){
     double two=2;
-    lamda=lamda-1;
+    if(lamda>31)
+    {
+      lamda=lamda-1;
+    }
+
     double max= (Math.pow(two,lamda)-1);
     long a =(long) max;
     return a;
@@ -106,15 +133,6 @@ public static long maxNumberGenerator(int lamda){
     System.out.println("The original Message is : ");
     System.out.println(message);
   }
-
-
-  public static int randomNumberInRange(int min, int max)
-  {
-    Random random = new Random();
-    return random.nextInt((max - min) + 1) + min;
-  }
-
-
 
   public static void encryptionMaxima(String s)
   {
@@ -204,6 +222,7 @@ public static long maxNumberGenerator(int lamda){
     }
 
   }
+
   public static void keyGenerator()
   {
     int num1 = randomNumberInRange(1,2147483647);
